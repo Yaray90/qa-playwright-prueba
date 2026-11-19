@@ -24,6 +24,7 @@ test.describe('Login', () => {
     await expect(loginPage.errorMessage).toHaveText(
       'Epic sadface: Username and password do not match any user in this service'
     );
+    await expect(page).not.toHaveURL(/inventory\.html/);
   });
 
   test('login fallido con locked_out_user muestra mensaje de usuario bloqueado', async ({ page }) => {
@@ -35,5 +36,30 @@ test.describe('Login', () => {
     await expect(loginPage.errorMessage).toHaveText(
       'Epic sadface: Sorry, this user has been locked out.'
     );
+    await expect(page).not.toHaveURL(/inventory\.html/);
+  });
+
+  test('login con usuario vacío muestra mensaje de usuario requerido', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login('', 'secret_sauce');
+
+    await expect(loginPage.errorMessage).toHaveText(
+      'Epic sadface: Username is required'
+    );
+    await expect(page).not.toHaveURL(/inventory\.html/);
+  });
+
+  test('login con contraseña vacía muestra mensaje de contraseña requerida', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login('standard_user', '');
+
+    await expect(loginPage.errorMessage).toHaveText(
+      'Epic sadface: Password is required'
+    );
+    await expect(page).not.toHaveURL(/inventory\.html/);
   });
 });
