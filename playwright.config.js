@@ -28,19 +28,30 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      /* Los proyectos de navegador no ejecutan las pruebas de API. */
+      testIgnore: /tests[\\/]api[\\/]/,
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      testIgnore: /tests[\\/]api[\\/]/,
     },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      testIgnore: /tests[\\/]api[\\/]/,
     },
 
-   
+    {
+      /* Proyecto exclusivo para pruebas de API: sin navegador. */
+      name: 'api',
+      testMatch: /tests[\\/]api[\\/].*\.spec\.js/,
+      use: {
+        baseURL: 'https://restful-booker.herokuapp.com',
+      },
+    },
   ],
 
 });
