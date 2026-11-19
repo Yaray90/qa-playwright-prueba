@@ -4,7 +4,8 @@
   "description": "Prueba para puesto de QA",
   "main": "index.js",
   "scripts": {
-    "test:postman": "newman run postman/restful-booker.postman_collection.json -e postman/restful-booker.postman_environment.json"
+    "test:postman": "newman run postman/restful-booker.postman_collection.json -e postman/restful-booker.postman_environment.json",
+    "test:load": "jmeter -n -t jmeter/booking-load.jmx -l jmeter/results.jtl -f -e -o jmeter/report"
   },
   "repository": {
     "type": "git",
