@@ -19,7 +19,7 @@ export class LoginPage {
    * Navega a la página de login.
    */
   async goto() {
-    await this.page.goto('https://www.saucedemo.com/');
+    await this.page.goto('https://www.saucedemo.com/', { waitUntil: 'domcontentloaded' });
   }
 
   /**
