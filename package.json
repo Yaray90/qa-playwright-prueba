@@ -1,0 +1,22 @@
+{
+  "name": "qa-playwright-prueba",
+  "version": "1.0.0",
+  "description": "Prueba para puesto de QA",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yaray90/qa-playwright-prueba.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yaray90/qa-playwright-prueba/issues"
+  },
+  "homepage": "https://github.com/Yaray90/qa-playwright-prueba#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.6"
+  }
+}
