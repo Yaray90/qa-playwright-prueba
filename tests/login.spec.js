@@ -3,9 +3,7 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage.js';
 import { InventoryPage } from '../pages/InventoryPage.js';
 
-// Prueba de login E2E
 test.describe('Login', () => {
-  //
   test('login correcto con standard_user muestra el listado de productos', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const inventoryPage = new InventoryPage(page);
@@ -37,6 +35,30 @@ test.describe('Login', () => {
 
     await expect(loginPage.errorMessage).toHaveText(
       'Epic sadface: Sorry, this user has been locked out.'
+    );
+    await expect(page).not.toHaveURL(/inventory\.html/);
+  });
+
+  test('login con usuario vacío muestra mensaje de usuario requerido', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login('', 'secret_sauce');
+
+    await expect(loginPage.errorMessage).toHaveText(
+      'Epic sadface: Username is required'
+    );
+    await expect(page).not.toHaveURL(/inventory\.html/);
+  });
+
+  test('login con contraseña vacía muestra mensaje de contraseña requerida', async ({ page }) => {
+    const loginPage = new LoginPage(page);
+
+    await loginPage.goto();
+    await loginPage.login('standard_user', '');
+
+    await expect(loginPage.errorMessage).toHaveText(
+      'Epic sadface: Password is required'
     );
     await expect(page).not.toHaveURL(/inventory\.html/);
   });
